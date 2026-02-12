@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: parttimejob_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: PartTimeJob
+      POSTGRES_USER: arubaito
+      POSTGRES_PASSWORD: prmn2026
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
