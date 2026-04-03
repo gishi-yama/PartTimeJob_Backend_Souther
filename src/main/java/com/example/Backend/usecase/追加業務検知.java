@@ -3,10 +3,13 @@ package com.example.Backend.usecase;
 import com.example.Backend.domain.*; // 「*」はワイルドカード
 import com.example.Backend.domain.specification.時間帯;
 import com.example.Backend.domain.specification.通常労働時間帯と追加労働時間帯;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+@Service
 public class 追加業務検知 {
+
     private 講義情報 講義情報;
     private アルバイト情報 アルバイト情報;
     private 追加労働時間帯 追加労働時間帯;
@@ -34,11 +37,11 @@ public class 追加業務検知 {
 
         アルバイトの曜日 アルバイトの曜日 = カレンダー.曜日算出する(アルバイト情報.アルバイトの日にち()); // 3.1
 
-        if (講義情報.講義の曜日() != アルバイトの曜日.アルバイトの曜日()) { // アルバイトの曜日と講義の曜日が一致
+        if (講義情報.講義の曜日().equals(アルバイトの曜日.アルバイトの曜日())) { // アルバイトの曜日と講義の曜日が一致
             追加労働時間帯 = 時間割.追加労働時間帯を作る(アルバイト情報.労働時間帯());  // 3.2
         }
 
-        if (講義情報.講義の曜日() == アルバイトの曜日.アルバイトの曜日()) { // アルバイトの曜日と講義の曜日が不一致
+        if (!講義情報.講義の曜日().equals(アルバイトの曜日.アルバイトの曜日())){ // アルバイトの曜日と講義の曜日が不一致
             // 労働時間帯が講義時間帯に全て含まれる場合
             if (講義情報.講義時間帯().開始時間().compareTo(アルバイト情報.労働時間帯().開始時間()) <= 0 // 講義開始時間 が 労働開始時間 よりも 早い
                     &&  講義情報.講義時間帯().終了時間().compareTo(アルバイト情報.労働時間帯().終了時間()) >= 0) { // 講義終了時間 が 労働終了時間 よりも 遅い
