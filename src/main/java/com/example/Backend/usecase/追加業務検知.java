@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Service
 public class 追加業務検知 {
-
     private 講義情報 講義情報;
     private アルバイト情報 アルバイト情報;
     private 追加労働時間帯 追加労働時間帯;
