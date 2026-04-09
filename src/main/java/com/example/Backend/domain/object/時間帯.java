@@ -1,4 +1,4 @@
-package com.example.Backend.domain.specification;
+package com.example.Backend.domain.object;
 
 import java.time.LocalTime;
 

@@ -1,4 +1,4 @@
-package com.example.Backend.domain.specification;
+package com.example.Backend.domain.object;
 
 import com.example.Backend.domain.追加労働時間帯;
 import com.example.Backend.domain.通常労働時間帯;

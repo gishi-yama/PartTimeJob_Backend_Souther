@@ -1,11 +1,11 @@
 package com.example.Backend.usecase;
 
 import com.example.Backend.domain.*; // 「*」はワイルドカード
-import com.example.Backend.domain.specification.時間帯;
-import com.example.Backend.domain.specification.通常労働時間帯と追加労働時間帯;
+import com.example.Backend.domain.object.アルバイトの曜日;
+import com.example.Backend.domain.object.アルバイト情報;
+import com.example.Backend.domain.object.講義情報;
+import com.example.Backend.domain.object.通常労働時間帯と追加労働時間帯;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class 追加業務検知 {

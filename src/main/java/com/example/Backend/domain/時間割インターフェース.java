@@ -1,7 +1,8 @@
 package com.example.Backend.domain;
 
-import com.example.Backend.domain.specification.時間帯;
-import com.example.Backend.domain.specification.通常労働時間帯と追加労働時間帯;
+import com.example.Backend.domain.object.時間帯;
+import com.example.Backend.domain.object.講義情報;
+import com.example.Backend.domain.object.通常労働時間帯と追加労働時間帯;
 
 public interface 時間割インターフェース {
     public 講義情報 取得する(選択した科目のデータ 選択した科目のデータ); // 1
