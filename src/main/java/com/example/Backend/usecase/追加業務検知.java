@@ -1,10 +1,9 @@
 package com.example.Backend.usecase;
 
 import com.example.Backend.domain.*; // 「*」はワイルドカード
-import com.example.Backend.domain.object.アルバイトの曜日;
-import com.example.Backend.domain.object.アルバイト情報;
-import com.example.Backend.domain.object.講義情報;
-import com.example.Backend.domain.object.通常労働時間帯と追加労働時間帯;
+import com.example.Backend.domain.object.*;
+import com.example.Backend.domain.specification.ルール;
+import com.example.Backend.domain.specification.ルール一覧;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,13 +28,14 @@ public class 追加業務検知 {
 
         アルバイトの曜日 アルバイトの曜日 = カレンダー.曜日算出する(アルバイト情報.日にち()); // 3.1
 
-        通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯 = null;
+        通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯 = null; // 初期化
+        ルール<アルバイトの曜日> 曜日ルール = ルール一覧.曜日ルールを得る(講義情報.曜日()); // 曜日が一致しているか判定するクラスを生成
 
-        if (講義情報.曜日().equals(アルバイトの曜日.曜日())) { // アルバイトの曜日と講義の曜日が一致
+        if (曜日ルール.判定する(アルバイトの曜日)) { // アルバイトの曜日と講義の曜日が一致
             通常労働時間帯と追加労働時間帯 = 時間割.通常労働時間帯と追加労働時間帯を作る(アルバイト情報.労働時間帯(), 講義情報.講義時間帯());  // 3.2
         }
 
-        if (!講義情報.曜日().equals(アルバイトの曜日.曜日())){ // アルバイトの曜日と講義の曜日が不一致
+        if (!曜日ルール.判定する(アルバイトの曜日)){ // アルバイトの曜日と講義の曜日が不一致
             // 労働時間帯が講義時間帯に全て含まれる場合
             if (講義情報.講義時間帯().開始時間().compareTo(アルバイト情報.労働時間帯().開始時間()) <= 0 // 講義開始時間 が 労働開始時間 よりも 早い
                     &&  講義情報.講義時間帯().終了時間().compareTo(アルバイト情報.労働時間帯().終了時間()) >= 0) { // 講義終了時間 が 労働終了時間 よりも 遅い
