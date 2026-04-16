@@ -1,6 +1,7 @@
 package com.example.Backend.domain.specification;
 
 import com.example.Backend.domain.object.アルバイトの曜日;
+import com.example.Backend.domain.object.時間帯;
 import com.example.Backend.domain.object.講義の曜日;
 
 public class ルール一覧 {
@@ -9,4 +10,7 @@ public class ルール一覧 {
         return new 曜日ルール(講義);
     }
 
+    public static ルール<時間帯>　労働時間帯が講義時間帯にすべて含まれる(時間帯 講義時間帯){
+        return new Andルール(new 時間が遅いルール(講義時間帯.開始時間()),new 時間が早いルール());
+    }
 }
