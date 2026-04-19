@@ -1,3 +1,5 @@
-DBの情報
+DB名 ： PartTimeJob
 ユーザー名 ： arubaito
 パスワード ： prmn2026
+ポート ： 5433
+URL ： jdbc:postgresql://localhost:5433/PartTimeJob
