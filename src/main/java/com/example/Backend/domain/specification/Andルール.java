@@ -2,7 +2,7 @@ package com.example.Backend.domain.specification;
 
 //曜日と時間どっちも正しいかどうか検証
 //左が開始時間　右が終了時間　Tオブジェクトが講義の曜日や実際の労働時間
-public class Andルール<T> implements ルール<T>{
+public class Andルール<T> implements ルール<T> {
     private final ルール<T> 左;
     private final ルール<T> 右;
 
