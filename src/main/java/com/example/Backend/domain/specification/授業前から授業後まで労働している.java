@@ -8,22 +8,17 @@ import java.util.function.BiPredicate;
 
 public class 授業前から授業後まで労働している {
 
-//    public final ルール<時間帯> ルール;
     private final 時間帯 講義時間帯;
     private final 時間帯 労働時間帯;
-    private final BiPredicate<時間帯,時間帯> 労働開始時間が授業開始時間より早い = (講義時間帯,労働時間帯) -> 労働時間帯.開始時間().isBefore(講義時間帯.開始時間());
-    private final BiPredicate<時間帯,時間帯> 労働終了時間が授業終了時間より遅い = (講義時間帯,労働時間帯) -> 労働時間帯.終了時間().isAfter(講義時間帯.終了時間());
+    private final BiPredicate<時間帯,時間帯> 労働開始時間が授業開始時間より早い = (講義時間帯,労働時間帯) -> 労働時間帯.開始時間().isBefore(講義時間帯.開始時間()); // a.isBefore(b) : aはbより後か
+    private final BiPredicate<時間帯,時間帯> 労働終了時間が授業終了時間より遅い = (講義時間帯,労働時間帯) -> 労働時間帯.終了時間().isAfter(講義時間帯.終了時間()); // a.isBefore(b) : aはbより前か
 
     public 授業前から授業後まで労働している(時間帯 講義時間帯,時間帯 労働時間帯){
-//        this.ルール = new Andルール(
-//                new 労働開始時間を得る(new 時間が早いルール(講義時間帯.開始時間())),
-//                new 労働終了時間を得る(new 時間が遅いルール(講義時間帯.終了時間())));
         this.講義時間帯 = 講義時間帯;
         this.労働時間帯 = 労働時間帯;
     }
 
     public boolean 判定する(){
-//       return ルール.判定する(労働時間帯);
-       return 労働開始時間が授業開始時間より早い.and( 労働終了時間が授業終了時間より遅い).test(講義時間帯, 労働時間帯);
+       return 労働開始時間が授業開始時間より早い.and(労働終了時間が授業終了時間より遅い).test(講義時間帯, 労働時間帯);
     }
 }
