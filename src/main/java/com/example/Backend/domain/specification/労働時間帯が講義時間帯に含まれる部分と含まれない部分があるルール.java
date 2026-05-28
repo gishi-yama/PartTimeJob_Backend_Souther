@@ -1,6 +1,6 @@
 package com.example.Backend.domain.specification;
 
-import com.example.Backend.domain.object.時間帯;
+import com.example.Backend.domain.record.時間帯;
 
 import java.util.function.BiPredicate;
 

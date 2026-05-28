@@ -1,7 +1,7 @@
 package com.example.Backend.domain;
 
-import com.example.Backend.domain.object.アルバイトの日にち;
-import com.example.Backend.domain.object.アルバイトの曜日;
+import com.example.Backend.domain.record.アルバイトの日にち;
+import com.example.Backend.domain.record.アルバイトの曜日;
 
 import java.time.format.TextStyle;
 import java.util.Locale;

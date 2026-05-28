@@ -1,9 +1,9 @@
 package com.example.Backend.domain;
 
-import com.example.Backend.domain.object.時間帯;
-import com.example.Backend.domain.object.講義の曜日;
-import com.example.Backend.domain.object.講義情報;
-import com.example.Backend.domain.object.通常労働時間帯と追加労働時間帯;
+import com.example.Backend.domain.record.時間帯;
+import com.example.Backend.domain.record.講義の曜日;
+import com.example.Backend.domain.record.講義情報;
+import com.example.Backend.domain.record.通常労働時間帯と追加労働時間帯;
 
 import java.time.LocalTime;
 
@@ -25,6 +25,7 @@ public class 時間割 implements 時間割インターフェース{
     public 通常労働時間帯と追加労働時間帯 追加労働時間帯を作る(時間帯 労働時間帯){ // 3.2, 3.3.3
         追加労働時間帯 追加労働時間帯 = new 追加労働時間帯();
         return new 通常労働時間帯と追加労働時間帯(null,追加労働時間帯);
+
     }
 
     @Override

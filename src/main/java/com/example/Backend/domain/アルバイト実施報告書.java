@@ -1,9 +1,9 @@
 package com.example.Backend.domain;
 
-import com.example.Backend.domain.object.アルバイトの日にち;
-import com.example.Backend.domain.object.アルバイト情報;
-import com.example.Backend.domain.object.時間帯;
-import com.example.Backend.domain.object.業務内容;
+import com.example.Backend.domain.record.アルバイトの日にち;
+import com.example.Backend.domain.record.アルバイト情報;
+import com.example.Backend.domain.record.時間帯;
+import com.example.Backend.domain.record.業務内容;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

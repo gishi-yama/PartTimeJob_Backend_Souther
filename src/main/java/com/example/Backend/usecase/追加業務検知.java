@@ -1,7 +1,7 @@
 package com.example.Backend.usecase;
 
 import com.example.Backend.domain.*; // 「*」はワイルドカード
-import com.example.Backend.domain.object.*;
+import com.example.Backend.domain.record.*;
 import com.example.Backend.domain.specification.*;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class 追加業務検知 {
         授業前から授業後まで労働しているルール 授業前から授業後まで労働しているか = new 授業前から授業後まで労働しているルール(講義情報.講義時間帯(),アルバイト情報.労働時間帯());
 
         if (!曜日が一致するか.判定する()) { // アルバイトの曜日と講義の曜日が不一致
-            通常労働時間帯と追加労働時間帯 = 時間割.通常労働時間帯と追加労働時間帯を作る(アルバイト情報.労働時間帯(), 講義情報.講義時間帯());  // 3.2
+            通常労働時間帯と追加労働時間帯 = 時間割.追加労働時間帯を作る(アルバイト情報.労働時間帯());  // 3.2
         }
 
         if (曜日が一致するか.判定する()){ // アルバイトの曜日と講義の曜日が一致

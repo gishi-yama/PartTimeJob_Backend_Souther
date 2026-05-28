@@ -1,7 +1,7 @@
 package com.example.Backend.domain.specification;
 
-import com.example.Backend.domain.object.アルバイトの曜日;
-import com.example.Backend.domain.object.講義の曜日;
+import com.example.Backend.domain.record.アルバイトの曜日;
+import com.example.Backend.domain.record.講義の曜日;
 
 import java.util.function.BiPredicate;
 
