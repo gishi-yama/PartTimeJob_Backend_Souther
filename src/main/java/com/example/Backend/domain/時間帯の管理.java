@@ -1,9 +1,9 @@
 package com.example.Backend.domain;
 
 import com.example.Backend.domain.record.時間帯;
+import com.example.Backend.domain.record.追加労働時間帯;
+import com.example.Backend.domain.record.通常労働時間帯;
 import com.example.Backend.domain.record.通常労働時間帯と追加労働時間帯;
-
-import java.util.function.BiPredicate;
 
 public class 時間帯の管理 {
 
