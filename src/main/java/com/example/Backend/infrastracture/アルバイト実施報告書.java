@@ -1,9 +1,10 @@
-package com.example.Backend.domain;
+package com.example.Backend.infrastracture;
 
 import com.example.Backend.domain.record.アルバイトの日にち;
 import com.example.Backend.domain.record.アルバイト情報;
 import com.example.Backend.domain.record.時間帯;
 import com.example.Backend.domain.record.業務内容;
+import com.example.Backend.domain.選択した科目のデータ;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
