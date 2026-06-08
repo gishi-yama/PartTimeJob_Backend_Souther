@@ -12,14 +12,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Repository
-public class 講義前から講義後まで労働している場合 implements アルバイト実施報告書インターフェース {
+public class 曜日が一致かつ労働時間が講義時間内にすべて含まれる場合 implements アルバイト実施報告書インターフェース {
 
     @Override
     public アルバイト情報 取得する(選択した科目のデータ 選択した科目のデータ){ // 2
-        時間帯 労働時間帯 = new 時間帯(LocalTime.of(8,0,0), LocalTime.of(13,00,0));
-        アルバイトの日にち アルバイトの日にち = new アルバイトの日にち(LocalDate.of(2026,4,6));
-        業務内容 内容 = new 業務内容(1);
+    時間帯 労働時間帯 = new 時間帯(LocalTime.of(9,40,0), LocalTime.of(12,0,0));
+    アルバイトの日にち アルバイトの日にち = new アルバイトの日にち(LocalDate.of(2026,6,1));
+    業務内容 内容 = new 業務内容(1);
 
-        return new アルバイト情報(労働時間帯, アルバイトの日にち, 内容);
+    return new アルバイト情報(労働時間帯, アルバイトの日にち, 内容);
     }
 }
