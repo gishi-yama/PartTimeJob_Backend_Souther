@@ -6,10 +6,12 @@ import com.example.Backend.domain.record.時間帯;
 import com.example.Backend.domain.record.業務内容;
 import com.example.Backend.domain.アルバイト実施報告書インターフェース;
 import com.example.Backend.domain.選択した科目のデータ;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Repository
 public class アルバイト実施報告書 implements アルバイト実施報告書インターフェース {
     @Override
     public アルバイト情報 取得する(選択した科目のデータ 選択した科目のデータ){ // 2

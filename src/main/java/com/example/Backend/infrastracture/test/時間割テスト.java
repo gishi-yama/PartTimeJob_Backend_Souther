@@ -5,9 +5,11 @@ import com.example.Backend.domain.record.講義の曜日;
 import com.example.Backend.domain.record.講義情報;
 import com.example.Backend.domain.時間割インターフェース;
 import com.example.Backend.domain.選択した科目のデータ;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
 
+@Repository
 public class 時間割テスト implements 時間割インターフェース {
 
     @Override

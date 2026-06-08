@@ -5,6 +5,7 @@ import com.example.Backend.domain.record.*;
 import com.example.Backend.domain.specification.*;
 import com.example.Backend.infrastracture.アルバイト実施報告書;
 import com.example.Backend.infrastracture.時間割;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +16,10 @@ public class 追加業務検知 {
     private final カレンダー カレンダー;
     private final 労働情報表示 労働情報表示;
 
-    public 追加業務検知(時間割インターフェース 時間割, アルバイト実施報告書インターフェース アルバイト実施報告書, カレンダー カレンダー, 労働情報表示 労働情報表示) {
+    public 追加業務検知(@Qualifier("時間割テスト") 時間割インターフェース 時間割,
+                        @Qualifier("曜日が異なる場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
+                        カレンダー カレンダー,
+                        労働情報表示 労働情報表示) {
         this.時間割 = 時間割;
         this.アルバイト実施報告書 = アルバイト実施報告書;
         this.カレンダー = カレンダー;
