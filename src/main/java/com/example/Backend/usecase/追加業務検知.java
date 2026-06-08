@@ -1,10 +1,11 @@
 package com.example.Backend.usecase;
 
-import com.example.Backend.domain.*; // 「*」はワイルドカード
-import com.example.Backend.domain.record.*;
+import com.example.Backend.domain.record.アルバイトの曜日;
+import com.example.Backend.domain.record.アルバイト情報;
+import com.example.Backend.domain.record.講義情報;
+import com.example.Backend.domain.record.通常労働時間帯と追加労働時間帯;
 import com.example.Backend.domain.specification.*;
-import com.example.Backend.infrastracture.アルバイト実施報告書;
-import com.example.Backend.infrastracture.時間割;
+import com.example.Backend.domain.*; // 「*」はワイルドカード
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class 追加業務検知 {
     private final 労働情報表示 労働情報表示;
 
     public 追加業務検知(@Qualifier("時間割テスト") 時間割インターフェース 時間割,
-                        @Qualifier("曜日が異なる場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
+                        @Qualifier("曜日が一致かつ講義前から講義後まで労働している場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
                         カレンダー カレンダー,
                         労働情報表示 労働情報表示) {
         this.時間割 = 時間割;
@@ -26,7 +27,7 @@ public class 追加業務検知 {
         this.労働情報表示 = 労働情報表示;
     }
 
-    void 実行する(選択した科目のデータ 選択した科目のデータ) {
+    public void 実行する(選択した科目のデータ 選択した科目のデータ) {
         講義情報 講義情報 = 時間割.取得する(選択した科目のデータ); // 1
 
         アルバイト情報 アルバイト情報 = アルバイト実施報告書.取得する(選択した科目のデータ); // 2
