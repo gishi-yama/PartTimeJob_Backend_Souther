@@ -13,17 +13,17 @@ public class 労働情報表示 {
         try {
             System.out.println("　 通常労働時間 : "+通常労働時間帯と追加労働時間帯.通常労働時間帯().開始時間() + " ~ " + 通常労働時間帯と追加労働時間帯.通常労働時間帯().終了時間());
         }catch(NullPointerException e){
-            System.out.println("何も入っていません");
+            System.out.println("　 通常労働時間 : 何も入っていません");
         }
         try {
             System.out.println("追加労働時間帯1 : "+通常労働時間帯と追加労働時間帯.追加労働時間帯1().開始時間() + " ~ " + 通常労働時間帯と追加労働時間帯.追加労働時間帯1().終了時間());
         }catch(NullPointerException e){
-            System.out.println("何も入っていません");
+            System.out.println("追加労働時間帯1 : 何も入っていません");
         }
         try {
             System.out.println("追加労働時間帯2 : "+通常労働時間帯と追加労働時間帯.追加労働時間帯2().開始時間() + " ~ " + 通常労働時間帯と追加労働時間帯.追加労働時間帯2().終了時間());
         }catch(NullPointerException e){
-            System.out.println("何も入っていません");
+            System.out.println("追加労働時間帯2 : 何も入っていません");
         }
     } // 4
 }
