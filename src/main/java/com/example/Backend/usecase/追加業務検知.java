@@ -1,13 +1,12 @@
 package com.example.Backend.usecase;
 
-import com.example.Backend.domain.record.アルバイトの曜日;
-import com.example.Backend.domain.record.アルバイト情報;
-import com.example.Backend.domain.record.講義情報;
-import com.example.Backend.domain.record.通常労働時間帯と追加労働時間帯;
+import com.example.Backend.domain.record.*;
 import com.example.Backend.domain.specification.*;
 import com.example.Backend.domain.*; // 「*」はワイルドカード
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
 
 @Service
 public class 追加業務検知 {
@@ -18,7 +17,7 @@ public class 追加業務検知 {
     private final 労働情報表示 労働情報表示;
 
     public 追加業務検知(@Qualifier("時間割テスト") 時間割インターフェース 時間割,
-                        @Qualifier("曜日が一致かつ講義前から講義後まで労働している場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
+                        @Qualifier("曜日が一致かつ講義時間外で労働している場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
                         カレンダー カレンダー,
                         労働情報表示 労働情報表示) {
         this.時間割 = 時間割;
@@ -34,7 +33,11 @@ public class 追加業務検知 {
 
         アルバイトの曜日 アルバイトの曜日 = カレンダー.曜日算出する(アルバイト情報.日にち()); // 3.1
 
-        通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯 = null; // 初期化
+        // 通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯;
+        通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯
+                = new 通常労働時間帯と追加労働時間帯(new 通常労働時間帯(LocalTime.of(9,0,0), LocalTime.of(9,0,0)),
+                new 追加労働時間帯(LocalTime.of(9,0,0), LocalTime.of(9,0,0)),
+                new 追加労働時間帯(LocalTime.of(9,0,0), LocalTime.of(9,0,0))); // = null; // 初期化
         曜日が一致するかルール 曜日が一致するか = new 曜日が一致するかルール(講義情報.曜日(),アルバイトの曜日);
         労働時間帯が講義時間帯に全て含まれるルール 労働時間帯が講義時間帯に全て含まれるか = new 労働時間帯が講義時間帯に全て含まれるルール(講義情報.講義時間帯(),アルバイト情報.労働時間帯());
         労働時間帯が講義時間帯に含まれる部分と含まれない部分があるルール 労働時間帯が講義時間帯に含まれる部分と含まれない部分があるか = new 労働時間帯が講義時間帯に含まれる部分と含まれない部分があるルール(講義情報.講義時間帯(),アルバイト情報.労働時間帯());
@@ -46,12 +49,12 @@ public class 追加業務検知 {
             通常労働時間帯と追加労働時間帯 = 時間帯の管理.追加労働時間帯を作る(アルバイト情報.労働時間帯());  // 3.2
         }
 
-        if (曜日が一致するか.判定する()){
+        else/** if (曜日が一致するか.判定する())**/{
             if (労働時間帯が講義時間帯に全て含まれるか.判定する()) {
                 通常労働時間帯と追加労働時間帯 = 時間帯の管理.通常労働時間帯を作る(アルバイト情報.労働時間帯()); // 3.3.1
             }
 
-            if (労働時間帯が講義時間帯に含まれる部分と含まれない部分があるか.判定する()) {
+            else if (労働時間帯が講義時間帯に含まれる部分と含まれない部分があるか.判定する()) {
                 if (講義前から講義後まで労働しているか.判定する()) {
                     通常労働時間帯と追加労働時間帯 = 時間帯の管理.通常労働時間帯と2つの追加労働時間帯を作る(講義情報.講義時間帯(), アルバイト情報.労働時間帯());
                 }
@@ -61,7 +64,7 @@ public class 追加業務検知 {
             }
 
             // 労働時間帯が講義時間帯に全て含まれない場合
-            if (講義時間以外で労働しているか.判定する()) {
+            else/** if (講義時間以外で労働しているか.判定する())**/ {
                 通常労働時間帯と追加労働時間帯 = 時間帯の管理.追加労働時間帯を作る(アルバイト情報.労働時間帯()); // 3.3.3
             }
 
