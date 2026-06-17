@@ -9,7 +9,7 @@ import java.util.Locale;
 
 @Service
 public class カレンダー {
-    public アルバイトの曜日 曜日算出する(アルバイトの日にち アルバイトの日にち){ // 3.1
+    public アルバイトの曜日 算出する(アルバイトの日にち アルバイトの日にち){ // 3.1
         // 曜日を英語で算出
         var dayOfWeek = アルバイトの日にち.アルバイトの日にち().getDayOfWeek();
 
