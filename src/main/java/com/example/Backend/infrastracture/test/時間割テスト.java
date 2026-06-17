@@ -1,10 +1,10 @@
 package com.example.Backend.infrastracture.test;
 
-import com.example.Backend.domain.record.時間帯;
-import com.example.Backend.domain.record.講義の曜日;
-import com.example.Backend.domain.record.講義情報;
-import com.example.Backend.domain.時間割インターフェース;
-import com.example.Backend.domain.選択した科目のデータ;
+import com.example.Backend.domain.追加業務検知.record.時間帯;
+import com.example.Backend.domain.追加業務検知.record.講義の曜日;
+import com.example.Backend.domain.追加業務検知.record.講義情報;
+import com.example.Backend.domain.追加業務検知.時間割インターフェース;
+import com.example.Backend.domain.追加業務検知.選択した科目のデータ;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;

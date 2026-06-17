@@ -1,11 +1,11 @@
 package com.example.Backend.infrastracture;
 
-import com.example.Backend.domain.record.アルバイトの日にち;
-import com.example.Backend.domain.record.アルバイト情報;
-import com.example.Backend.domain.record.時間帯;
-import com.example.Backend.domain.record.業務内容;
-import com.example.Backend.domain.アルバイト実施報告書インターフェース;
-import com.example.Backend.domain.選択した科目のデータ;
+import com.example.Backend.domain.追加業務検知.record.アルバイトの日にち;
+import com.example.Backend.domain.追加業務検知.record.アルバイト情報;
+import com.example.Backend.domain.追加業務検知.record.時間帯;
+import com.example.Backend.domain.追加業務検知.record.業務内容;
+import com.example.Backend.domain.追加業務検知.アルバイト実施報告書インターフェース;
+import com.example.Backend.domain.追加業務検知.選択した科目のデータ;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

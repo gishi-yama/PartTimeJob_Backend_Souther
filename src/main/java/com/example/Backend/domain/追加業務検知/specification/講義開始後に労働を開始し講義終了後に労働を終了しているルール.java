@@ -1,6 +1,6 @@
-package com.example.Backend.domain.specification;
+package com.example.Backend.domain.追加業務検知.specification;
 
-import com.example.Backend.domain.record.時間帯;
+import com.example.Backend.domain.追加業務検知.record.時間帯;
 
 import java.util.function.BiPredicate;
 
