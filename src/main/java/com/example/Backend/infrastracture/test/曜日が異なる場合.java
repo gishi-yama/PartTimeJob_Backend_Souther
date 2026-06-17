@@ -15,8 +15,7 @@ import java.time.LocalTime;
 public class 曜日が異なる場合 implements アルバイト実施報告書インターフェース {
 
     @Override
-    public アルバイト情報 取得する(選択した科目のデータ 選択した科目のデータ){
-
+    public アルバイト情報 取得する(選択した科目のデータ 選択した科目のデータ){ // 2
         時間帯 労働時間帯 = new 時間帯(LocalTime.of(9,0,0), LocalTime.of(12,15,0));
         アルバイトの日にち アルバイトの日にち = new アルバイトの日にち(LocalDate.of(2026,6,4));
         業務内容 内容 = new 業務内容("採点業務");

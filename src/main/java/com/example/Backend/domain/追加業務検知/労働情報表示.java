@@ -33,5 +33,5 @@ public class 労働情報表示 {
         }catch(NullPointerException e){
             System.out.println("講義時間帯に全て含まれていない追加労働時間帯 : 何も入っていません");
         }
-    } // 4
+    }
 }
