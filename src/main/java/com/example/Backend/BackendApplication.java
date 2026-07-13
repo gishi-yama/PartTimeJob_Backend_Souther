@@ -1,8 +1,8 @@
 package com.example.Backend;
 
 import com.example.Backend.domain.追加業務検知.record.追加業務検知の結果;
+import com.example.Backend.domain.追加業務検知.record.選択した科目のデータ;
 import com.example.Backend.domain.追加業務検知.労働情報表示;
-import com.example.Backend.domain.追加業務検知.選択した科目のデータ;
 import com.example.Backend.usecase.追加業務検知;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
