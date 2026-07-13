@@ -41,7 +41,7 @@ public class アルバイト実施報告書 implements アルバイト実施報�
                 """;
 
         int 科目のid = jdbcClient.sql(subjectsStatement)
-                .params(選択した科目のデータ)
+                .params(選択した科目のデータ.科目名())
                 .query(Integer.class)
                 .single();
 

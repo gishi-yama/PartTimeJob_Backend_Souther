@@ -32,12 +32,12 @@ public class 時間割 implements 時間割インターフェース {
                 """;
 
         時間帯 講義時間帯 = jdbcClient.sql(timeStatement)
-                .params(選択した科目のデータ)
+                .params(選択した科目のデータ.科目名())
                 .query(時間帯.class)
                 .single();
 
         講義の曜日 講義の曜日 = jdbcClient.sql(weekStatement)
-                .params(選択した科目のデータ)
+                .params(選択した科目のデータ.科目名())
                 .query(講義の曜日.class)
                 .single();
 
