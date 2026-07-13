@@ -23,19 +23,21 @@ public class 時間割 implements 時間割インターフェース {
     public 講義情報 取得する(選択した科目のデータ 選択した科目のデータ) { // 1
         String timeStatement = """
                     select scheduled_start_time, scheduled_finish_time from subjects
-                        where subject_name = 選択した科目のデータ
+                        where subject_name = ?
                 """;
 
         String weekStatement = """
                     select day_of_week from subjects
-                        where subject_name = 選択した科目のデータ
+                        where subject_name = ?
                 """;
 
         時間帯 講義時間帯 = jdbcClient.sql(timeStatement)
+                .params(選択した科目のデータ)
                 .query(時間帯.class)
                 .single();
 
         講義の曜日 講義の曜日 = jdbcClient.sql(weekStatement)
+                .params(選択した科目のデータ)
                 .query(講義の曜日.class)
                 .single();
 
