@@ -2,7 +2,6 @@ package com.example.Backend.usecase;
 
 import com.example.Backend.domain.追加業務検知.record.*;
 import com.example.Backend.domain.追加業務検知.*;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +12,8 @@ public class 追加業務検知 {
     private final カレンダー カレンダー;
     private final 労働時間帯分割 労働時間帯分割;
 
-    public 追加業務検知(@Qualifier("時間割テスト") 時間割インターフェース 時間割,
-                        @Qualifier("曜日が一致かつ講義前から講義後まで労働している場合") アルバイト実施報告書インターフェース アルバイト実施報告書,
+    public 追加業務検知(/*@Qualifier("時間割テスト")*/時間割インターフェース 時間割,
+                        /*@Qualifier("曜日が一致かつ講義前から講義後まで労働している場合")*/アルバイト実施報告書インターフェース アルバイト実施報告書,
                         カレンダー カレンダー,
                         労働時間帯分割 労働時間帯分割) {
         this.時間割 = 時間割;
