@@ -22,12 +22,15 @@ public class 時間割 implements 時間割インターフェース {
     @Override
     public 講義情報 取得する(選択した科目のデータ 選択した科目のデータ) { // 1
         String timeStatement = """
-                    select scheduled_start_time, scheduled_finish_time from subjects
+                    select scheduled_start_time as 開始時間, 
+                           scheduled_finish_time as 終了時間 
+                    from subjects
                         where subject_name = ?
                 """;
 
         String weekStatement = """
-                    select day_of_week from subjects
+                    select day_of_week as 講義の曜日
+                    from subjects
                         where subject_name = ?
                 """;
 
