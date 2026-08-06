@@ -10,9 +10,9 @@ public class 労働情報表示 {
     public void 労働情報を出力する(List<追加業務検知の結果> 追加業務検知の結果リスト){
 
         for(追加業務検知の結果 追加業務検知の結果 : 追加業務検知の結果リスト) {
-            System.out.println(追加業務検知の結果.学籍番号());
-            System.out.println("＜" + 追加業務検知の結果.アルバイトの日にち() + "＞");
-            System.out.println("\t\t\t\t\t\t\t　業務内容 : " + 追加業務検知の結果.業務内容());
+            System.out.println(追加業務検知の結果.学籍番号().学籍番号());
+            System.out.println("＜" + 追加業務検知の結果.アルバイトの日にち().アルバイトの日にち() + "＞");
+            System.out.println("\t\t\t\t\t\t\t　業務内容 : " + 追加業務検知の結果.業務内容().業務内容());
             try {
                 System.out.println("\t\t\t\t\t\t　 通常労働時間 : " + 追加業務検知の結果.通常労働時間帯と追加労働時間帯().通常労働時間帯().開始時間() + " ~ " + 追加業務検知の結果.通常労働時間帯と追加労働時間帯().通常労働時間帯().終了時間());
             } catch (NullPointerException e) {
