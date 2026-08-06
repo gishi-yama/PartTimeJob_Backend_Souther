@@ -5,7 +5,6 @@ import com.example.Backend.domain.追加業務検知.アルバイト実施報告
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -18,29 +17,11 @@ public class アルバイト実施報告書 implements アルバイト実施報�
     }
 
     @Override
-    public アルバイト情報 取得する(選択した科目のデータ 選択した科目のデータ){ // 2
+    public List<曜日なしアルバイト情報> 取得する(選択した科目のデータ 選択した科目のデータ) {// 2
+
         String subjectsStatement = """
                     select subject_id from subjects
                         where subject_name = ?
-                """;
-
-
-        String timeStatement = """
-                    select 
-                        scheduled_start_time as 開始時間, 
-                        scheduled_finish_time as 終了時間 
-                    from subjects
-                    where subject_id = ?
-                """;
-
-        String dayStatement = """
-                    select ptj_date as アルバイトの日にち from ptj_requests
-                        where subject_id = ?
-                """;
-
-        String dutiesStatement = """
-                    select duties as 業務内容 from ptj_requests
-                        where subject_id = ?
                 """;
 
         int 科目のid = jdbcClient.sql(subjectsStatement)
@@ -48,26 +29,25 @@ public class アルバイト実施報告書 implements アルバイト実施報�
                 .query(Integer.class)
                 .single();
 
-        List<時間帯> 労働時間帯 = jdbcClient.sql(timeStatement)
+        String arubaitoStatement = """
+                    select student_id as 学籍番号,
+                           ptj_date as アルバイトの日にち,
+                           work_start_time as 開始時間,
+                           work_finish_time as 終了時間,
+                           duties as 業務内容
+                    from ptj_requests
+                    where subject_id = ?
+                """;
+
+        return jdbcClient.sql(arubaitoStatement)
                 .params(科目のid)
-                .query(時間帯.class)
+                .query((resultSet, rowNumber) -> new 曜日なしアルバイト情報(
+                        new 学籍番号(resultSet.getString("学籍番号")),
+                        new アルバイトの日にち(resultSet.getDate("アルバイトの日にち").toLocalDate()),
+                        new 時間帯(resultSet.getTime("開始時間").toLocalTime(),
+                                  resultSet.getTime("終了時間").toLocalTime()),
+                        new 業務内容(resultSet.getString("業務内容"))))
                 .list();
-
-        List<アルバイトの日にち> アルバイトの日にち = jdbcClient.sql(dayStatement)
-                .params(科目のid)
-                .query(アルバイトの日にち.class)
-                .list();
-
-        List<業務内容> 業務内容 = jdbcClient.sql(dutiesStatement)
-                .params(科目のid)
-                .query(業務内容.class)
-                .list();
-
-        ArrayList<アルバイト情報> アルバイト情報 = new ArrayList<>();
-
-        for(int i=0;i<労働時間帯.size();i++){
-            アルバイト情報.add(new アルバイト情報(労働時間帯.get(i),アルバイトの日にち.get(i),業務内容.get(i)));
-        }
-        return アルバイト情報.get(0);
     }
+
 }

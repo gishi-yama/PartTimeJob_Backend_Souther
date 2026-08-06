@@ -1,8 +1,13 @@
 package com.example.Backend.usecase;
 
 import com.example.Backend.domain.追加業務検知.record.*;
-import com.example.Backend.domain.追加業務検知.*;
+import com.example.Backend.domain.追加業務検知.アルバイト実施報告書インターフェース;
+import com.example.Backend.domain.追加業務検知.カレンダー;
+import com.example.Backend.domain.追加業務検知.労働時間帯分割;
+import com.example.Backend.domain.追加業務検知.時間割インターフェース;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class 追加業務検知 {
@@ -22,19 +27,14 @@ public class 追加業務検知 {
         this.労働時間帯分割 = 労働時間帯分割;
     }
 
-    public 追加業務検知の結果 実行する(選択した科目のデータ 選択した科目のデータ) {
+    public List<追加業務検知の結果> 実行する(選択した科目のデータ 選択した科目のデータ) {
         講義情報 講義情報 = 時間割.取得する(選択した科目のデータ); // 1
 
-        アルバイト情報 アルバイト情報 = アルバイト実施報告書.取得する(選択した科目のデータ); // 2
+        List<曜日なしアルバイト情報> 曜日なしアルバイト情報リスト = アルバイト実施報告書.取得する(選択した科目のデータ); // 2
 
-        アルバイトの曜日 アルバイトの曜日 = カレンダー.算出する(アルバイト情報.アルバイトの日にち()); // 3
+        List<曜日付きアルバイト情報> 曜日付きアルバイト情報リスト = カレンダー.算出する(曜日なしアルバイト情報リスト); // 3
 
-        通常労働時間帯と追加労働時間帯 通常労働時間帯と追加労働時間帯
-                = 労働時間帯分割.算出する(講義情報.講義の曜日(),
-                                       講義情報.講義時間帯(),
-                                       アルバイトの曜日,
-                                       アルバイト情報.労働時間帯()); // 4
+        return 労働時間帯分割.算出する(講義情報.講義の曜日(), 講義情報.講義時間帯(), 曜日付きアルバイト情報リスト); // 4
 
-        return new 追加業務検知の結果(アルバイト情報.アルバイトの日にち(), アルバイト情報.業務内容(), 通常労働時間帯と追加労働時間帯); // 5
     }
 }
