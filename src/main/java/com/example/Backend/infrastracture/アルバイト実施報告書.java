@@ -26,12 +26,12 @@ public class アルバイト実施報告書 implements アルバイト実施報�
 
 
         String timeStatement = """
-    select 
-        scheduled_start_time as 開始時間, 
-        scheduled_finish_time as 終了時間 
-    from subjects
-    where subject_id = ?
-""";
+                    select 
+                        scheduled_start_time as 開始時間, 
+                        scheduled_finish_time as 終了時間 
+                    from subjects
+                    where subject_id = ?
+                """;
 
         String dayStatement = """
                     select ptj_date as アルバイトの日にち from ptj_requests
