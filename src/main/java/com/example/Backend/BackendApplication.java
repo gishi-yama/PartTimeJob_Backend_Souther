@@ -1,11 +1,15 @@
 package com.example.Backend;
 
-import com.example.Backend.domain.選択した科目のデータ;
+import com.example.Backend.domain.追加業務検知.record.追加業務検知の結果;
+import com.example.Backend.domain.追加業務検知.record.選択した科目のデータ;
+import com.example.Backend.domain.追加業務検知.労働情報表示;
 import com.example.Backend.usecase.追加業務検知;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class BackendApplication {
@@ -21,10 +25,13 @@ public class BackendApplication {
 			System.out.println("--- 業務検知バッチ処理を開始します ---");
 
 			// TODO: テスト用のダミーデータを生成してください
-			選択した科目のデータ テストデータ = new 選択した科目のデータ(/* 必要な引数 */);
+			選択した科目のデータ テストデータ = new 選択した科目のデータ("線形代数Ⅰ(A)"/* 必要な引数 */);
 
 			// メソッドの実行（ここで内部の「労働情報表示」が呼ばれ、シェルに出力されます）
-			業務検知サービス.実行する(テストデータ);
+			List<追加業務検知の結果> 結果 = 業務検知サービス.実行する(テストデータ);
+
+			労働情報表示 労働情報表示 = new 労働情報表示();
+			労働情報表示.労働情報を出力する(結果);
 
 			System.out.println("--- 業務検知バッチ処理を終了しました ---");
 		};

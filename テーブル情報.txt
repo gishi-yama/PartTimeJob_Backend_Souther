@@ -1,0 +1,70 @@
+DROP TABLE IF EXISTS ptj_requests;
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS subjects;
+DROP TABLE IF EXISTS teachers;
+
+
+CREATE TABLE students (
+      student_id          VARCHAR(20)   PRIMARY KEY,  -- 学籍番号（主キー）
+      student_name        VARCHAR(255)  NOT NULL,    -- 名前
+      student_password    VARCHAR(255)  NOT NULL,    -- パスワード
+      student_type        VARCHAR(2)    NOT NULL     -- SA or TA
+      -- typeに入る値を制限する制約
+      CONSTRAINT check_user_type CHECK (student_type IN ('SA', 'TA')) -- 制約
+);
+
+CREATE TABLE teachers (
+      teacher_id        VARCHAR(50)   PRIMARY KEY,
+      teacher_name      VARCHAR(255)  NOT NULL,
+      teacher_password  VARCHAR(255)  NOT NULL
+);
+
+CREATE TABLE subjects (
+      subject_id             INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY, -- 登録した順に連番でidが生成される
+      subject_name           VARCHAR(100)  NOT NULL,
+      teacher_id             VARCHAR(50)   NOT NULL,
+      day_of_week            VARCHAR(1)    NOT NULL,
+      scheduled_start_time   TIME          NOT NULL,
+      scheduled_finish_time  TIME          NOT NULL,
+
+      FOREIGN KEY (teacher_id)  REFERENCES teachers (teacher_id)  ON UPDATE CASCADE, -- 外部キー制約
+      CONSTRAINT check_day_of_week CHECK (day_of_week IN ('月', '火', '水', '木', '金')), -- 制約
+      CONSTRAINT check_time CHECK (scheduled_finish_time > scheduled_start_time) -- 開始時間が終了時間より早いことを強制する制約
+);
+
+CREATE TABLE ptj_requests(
+      ptj_id              INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      student_id          VARCHAR(20)   NOT NULL,
+      subject_id          INTEGER       NOT NULL,
+      ptj_date            DATE          NOT NULL,
+      work_start_time     TIME          NOT NULL,
+      work_finish_time    TIME          NOT NULL,
+      break_time_minutes  FLOAT         NOT NULL,
+      office_hours        FLOAT         NOT NULL,
+      duties              VARCHAR(255)  NOT NULL,
+
+      FOREIGN KEY (student_id) REFERENCES students (student_id),
+      FOREIGN KEY (subject_id) REFERENCES subjects (subject_id)  ON UPDATE CASCADE
+);
+
+INSERT INTO students VALUES
+    ('b2240400','江刺家','123','SA'),
+    ('b2241170','城','987','SA'),
+    ('b2240010','相原','683','TA'),
+    ('b2241470','丹川元','872', 'TA');
+
+INSERT INTO teachers VALUES
+    ('1', '山川 広人', 'qwert'),
+    ('2', '藤井 忍', 'asdf');
+
+INSERT INTO subjects VALUES
+    (DEFAULT, 'Javaプログラミング', '1', '火', '15:00', '18:15'),
+    (DEFAULT, '線形代数Ⅰ(A)', '2', '金', '13:15', '14:45');
+
+INSERT INTO ptj_requests VALUES
+    (DEFAULT, 'b2240400', 1, '2026/7/7', '15:00', '18:15', 0.0,3.25, '授業補助'),
+    (DEFAULT, 'b2241170', 1, '2026/7/7', '14:45', '18:30', 0.0,3.75, '授業補助'),
+    (DEFAULT, 'b2240010', 2, '2026/7/10', '10:00', '12:00', 0.0,2, '採点'),
+    (DEFAULT, 'b2241470', 2, '2026/7/10', '12:45', '14:45', 0.0,2, '授業補助'),
+    (DEFAULT, 'b2240400', 1, '2026/7/14', '15:00', '18:30', 0.25,3.25, '授業補助'),
+    (DEFAULT, 'b2241170', 1, '2026/7/13', '19:00', '20:00', 0.0,1, '授業準備');
