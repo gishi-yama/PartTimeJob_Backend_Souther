@@ -17,7 +17,7 @@ public class アルバイト実施報告書 implements アルバイト実施報�
     }
 
     @Override
-    public List<曜日なしアルバイト情報> 取得する(選択した科目のデータ 選択した科目のデータ) {// 2
+    public 曜日なしアルバイト情報リスト 取得する(選択した科目のデータ 選択した科目のデータ) {// 2
 
         String subjectsStatement = """
                     select subject_id from subjects
@@ -39,15 +39,18 @@ public class アルバイト実施報告書 implements アルバイト実施報�
                     where subject_id = ?
                 """;
 
-        return jdbcClient.sql(arubaitoStatement)
-                .params(科目のid)
-                .query((resultSet, rowNumber) -> new 曜日なしアルバイト情報(
+        List<曜日なしアルバイト情報> 曜日なしアルバイト情報リスト
+                = jdbcClient.sql(arubaitoStatement)
+                    .params(科目のid)
+                    .query((resultSet, rowNumber) -> new 曜日なしアルバイト情報(
                         new 学籍番号(resultSet.getString("学籍番号")),
                         new アルバイトの日にち(resultSet.getDate("アルバイトの日にち").toLocalDate()),
                         new 時間帯(resultSet.getTime("開始時間").toLocalTime(),
                                   resultSet.getTime("終了時間").toLocalTime()),
                         new 業務内容(resultSet.getString("業務内容"))))
-                .list();
+                    .list();
+
+        return new 曜日なしアルバイト情報リスト(曜日なしアルバイト情報リスト);
     }
 
 }

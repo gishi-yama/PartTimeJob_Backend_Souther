@@ -1,8 +1,6 @@
 package com.example.Backend.domain.追加業務検知;
 
-import com.example.Backend.domain.追加業務検知.record.アルバイトの曜日;
-import com.example.Backend.domain.追加業務検知.record.曜日なしアルバイト情報;
-import com.example.Backend.domain.追加業務検知.record.曜日付きアルバイト情報;
+import com.example.Backend.domain.追加業務検知.record.*;
 import org.springframework.stereotype.Service;
 
 import java.time.format.TextStyle;
@@ -12,11 +10,12 @@ import java.util.Locale;
 
 @Service
 public class カレンダー {
-    public List<曜日付きアルバイト情報> 算出する(List<曜日なしアルバイト情報> 曜日なしアルバイト情報リスト) { // 3
+    public 曜日付きアルバイト情報リスト 算出する(曜日なしアルバイト情報リスト 曜日なしアルバイト情報リスト) { // 3
 
         ArrayList<曜日付きアルバイト情報> 曜日付きアルバイト情報リスト = new ArrayList<>();
+        List<曜日なしアルバイト情報> 曜日なしアルバイト情報一覧 = 曜日なしアルバイト情報リスト.曜日なしアルバイト情報リスト();
 
-        for (曜日なしアルバイト情報 曜日なしアルバイト情報 : 曜日なしアルバイト情報リスト) {
+        for (曜日なしアルバイト情報 曜日なしアルバイト情報 : 曜日なしアルバイト情報一覧) {
             // 曜日を英語で算出
             var dayOfWeek = 曜日なしアルバイト情報.アルバイトの日にち().アルバイトの日にち().getDayOfWeek();
 
@@ -33,6 +32,6 @@ public class カレンダー {
             曜日付きアルバイト情報リスト.add(曜日付きアルバイト情報);
         }
 
-        return 曜日付きアルバイト情報リスト;
+        return new 曜日付きアルバイト情報リスト(曜日付きアルバイト情報リスト);
     }
 }
