@@ -5,6 +5,7 @@ import com.example.Backend.domain.追加業務検知.record.講義の曜日;
 import com.example.Backend.domain.追加業務検知.record.講義情報;
 import com.example.Backend.domain.追加業務検知.record.選択した科目のデータ;
 import com.example.Backend.domain.追加業務検知.時間割インターフェース;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class 時間割 implements 時間割インターフェース {
     private JdbcClient jdbcClient;
 
     // Spring Frameworkのデータベース接続ライブラリを初期化する
-    public 時間割(JdbcClient jdbcClient) {
+    public 時間割(@Qualifier("教員JdbcClient作成")JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
@@ -29,7 +30,7 @@ public class 時間割 implements 時間割インターフェース {
                 """;
 
         String weekStatement = """
-                    select day_of_week as 講義の曜日
+                    select day_of_the_week as 講義の曜日
                     from subjects
                         where subject_name = ?
                 """;
