@@ -1,4 +1,4 @@
-package com.example.Backend.domain.追加業務検知.presentation;
+package com.example.Backend.presentation;
 
 import com.example.Backend.domain.追加業務検知.record.追加業務検知の結果リスト;
 import com.example.Backend.domain.追加業務検知.record.選択した科目のデータ;
