@@ -1,4 +1,4 @@
-package com.example.Backend.infrastracture;
+package com.example.Backend.infrastracture.追加業務検知;
 
 import com.example.Backend.domain.追加業務検知.record.*;
 import com.example.Backend.domain.追加業務検知.アルバイト実施報告書インターフェース;

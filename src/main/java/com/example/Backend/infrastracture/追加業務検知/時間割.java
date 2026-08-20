@@ -1,4 +1,4 @@
-package com.example.Backend.infrastracture;
+package com.example.Backend.infrastracture.追加業務検知;
 
 import com.example.Backend.domain.追加業務検知.record.時間帯;
 import com.example.Backend.domain.追加業務検知.record.講義の曜日;
