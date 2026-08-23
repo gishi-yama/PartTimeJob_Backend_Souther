@@ -1,4 +1,4 @@
-package com.example.Backend.infrastracture.subjectsテーブルへの登録;
+package com.example.Backend.infrastracture.teachersテーブルへの登録;
 
 import com.example.Backend.domain.teachersテーブルへの登録.record.教員アカウント;
 import com.example.Backend.domain.teachersテーブルへの登録.record.教員アカウントリスト;

@@ -1,15 +1,12 @@
 package com.example.Backend.infrastracture.subjectsテーブルへの登録;
 
-import com.example.Backend.domain.teachersテーブルへの登録.record.名前;
-import com.example.Backend.domain.teachersテーブルへの登録.record.名前リスト;
-import com.example.Backend.domain.teachersテーブルへの登録.シラバスインターフェース;
+import com.example.Backend.domain.subjectsテーブルへの登録.record.*;
+import com.example.Backend.domain.subjectsテーブルへの登録.シラバスインターフェース;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class シラバス implements シラバスインターフェース {
     private JdbcClient jdbcClient;
 
@@ -18,16 +15,18 @@ public class シラバス implements シラバスインターフェース {
     }
 
     @Override
-    public 名前リスト 取得する() {
-
+    public 講義情報リスト 取得する(){
         String syllabusStatement = """
-                    select teacher_name as 名前 from subjects
+                    select id as 科目ID, name as 科目名, teacher_name as 教員名 from subjects
                 """;
 
-        List<名前> nameList = jdbcClient.sql(syllabusStatement)
-                                    .query(名前.class)
-                                    .list();
+        List<講義情報> 講義情報リスト = jdbcClient.sql(syllabusStatement)
+                .query((resultSet, rowNumber) -> new 講義情報(
+                        new 科目ID(resultSet.getInt("科目ID")),
+                        new 科目名(resultSet.getString("科目名")),
+                        new 教員名(resultSet.getString("教員名"))))
+                .list();
 
-        return new 名前リスト(nameList);
+        return new 講義情報リスト(講義情報リスト);
     }
 }
