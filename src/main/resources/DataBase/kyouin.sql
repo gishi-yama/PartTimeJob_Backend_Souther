@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS teachers;
 DROP TABLE IF EXISTS subjects;
+DROP TABLE IF EXISTS teachers;
 
 CREATE TABLE teachers (
       teacher_id        INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

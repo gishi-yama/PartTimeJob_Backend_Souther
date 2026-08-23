@@ -17,7 +17,7 @@ public class パスワードマネージャー {
         List<名前> 名前一覧 = 名前リスト.名前リスト();
 
         for (名前 名前 : 名前一覧) {
-            パスワード パスワード = this.生成する(8);
+            パスワード パスワード = this.生成する();
 
             教員アカウント 教員アカウント  = new 教員アカウント(名前, パスワード);
             教員アカウント一覧.add(教員アカウント);
@@ -26,10 +26,11 @@ public class パスワードマネージャー {
         return new 教員アカウントリスト(教員アカウント一覧);
     }
 
-    public パスワード 生成する(int len) {
+    public パスワード 生成する() {
         SecureRandom random = new SecureRandom();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
+        StringBuilder sb = new StringBuilder(8);
+        // パスワードの文字数は8
+        for (int i = 0; i < 8; i++) {
             int index = random.nextInt(SRC.length());
             sb.append(SRC.charAt(index));
         }
