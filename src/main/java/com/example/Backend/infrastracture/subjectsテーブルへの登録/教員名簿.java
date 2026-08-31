@@ -1,7 +1,7 @@
 package com.example.Backend.infrastracture.subjectsテーブルへの登録;
 
-import com.example.Backend.domain.subjectsテーブルへの登録.record.教員IDあり講義情報リスト;
-import com.example.Backend.domain.subjectsテーブルへの登録.record.講義情報リスト;
+import com.example.Backend.domain.subjectsテーブルへの登録.record.教員証;
+import com.example.Backend.domain.subjectsテーブルへの登録.record.教員証リスト;
 import com.example.Backend.domain.subjectsテーブルへの登録.教員名簿インターフェース;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -19,23 +19,17 @@ public class 教員名簿 implements 教員名簿インターフェース {
     }
 
     @Override
-    public 教員IDあり講義情報リスト 取得する(講義情報リスト 講義情報リスト){
+    public 教員証リスト 取得する(){
         String facultyListStatement = """
                     select teacher_number as 教員ID,
                            teacher_name as 教員名
                     from teachers
                 """;
 
-        Map<Integer, String> facultyList = new LinkedHashMap<>();
+        List<教員証> 教員証リスト = jdbcClient.sql(facultyListStatement)
+                        .query(教員証.class)
+                        .list();
 
-        jdbcClient.sql(facultyListStatement)
-                                .query()
-                                .listOfRows()
-                                .forEach(row ->
-                                        facultyList.put(
-                                                (Integer) row.get("id"),
-                                                (String) row.get("name")
-                                        )
-                                );
+        return new 教員証リスト(教員証リスト);
     }
 }
