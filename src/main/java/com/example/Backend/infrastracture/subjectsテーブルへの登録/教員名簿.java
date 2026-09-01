@@ -5,12 +5,11 @@ import com.example.Backend.domain.subjectsテーブルへの登録.record.教員
 import com.example.Backend.domain.subjectsテーブルへの登録.教員名簿インターフェース;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+@Repository
 public class 教員名簿 implements 教員名簿インターフェース {
     private JdbcClient jdbcClient;
 

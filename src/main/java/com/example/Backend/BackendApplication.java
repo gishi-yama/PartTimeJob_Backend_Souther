@@ -3,6 +3,7 @@ package com.example.Backend;
 import com.example.Backend.domain.追加業務検知.record.追加業務検知の結果リスト;
 import com.example.Backend.domain.追加業務検知.record.選択した科目のデータ;
 import com.example.Backend.domain.追加業務検知.労働情報表示;
+import com.example.Backend.infrastracture.subjectsテーブルへの登録.シラバス;
 import com.example.Backend.usecase.teachersテーブルへの登録;
 import com.example.Backend.usecase.追加業務検知;
 import org.springframework.boot.CommandLineRunner;
@@ -19,8 +20,11 @@ public class BackendApplication {
 
 	// 起動時に自動で実行されるBeanを定義
 	@Bean
-	public CommandLineRunner run(追加業務検知 業務検知サービス, teachersテーブルへの登録 教員登録サービス) {
+	public CommandLineRunner run(追加業務検知 業務検知サービス, teachersテーブルへの登録 教員登録サービス, シラバス シラバス) {
 		return args -> {
+
+			シラバス.科目名表示();
+
 			教員登録サービス.初期化する();
 			教員登録サービス.実行する();
 

@@ -3,10 +3,11 @@ package com.example.Backend.infrastracture.subjectsテーブルへの登録;
 import com.example.Backend.domain.subjectsテーブルへの登録.record.日時付き講義情報;
 import com.example.Backend.domain.subjectsテーブルへの登録.record.日時付き講義情報リスト;
 import com.example.Backend.domain.subjectsテーブルへの登録.科目登録フォームインターフェース;
-import com.example.Backend.domain.teachersテーブルへの登録.record.教員アカウント;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class 科目登録フォーム implements 科目登録フォームインターフェース {
     private JdbcClient jdbcClient;
 

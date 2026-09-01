@@ -4,9 +4,11 @@ import com.example.Backend.domain.subjectsテーブルへの登録.record.*;
 import com.example.Backend.domain.subjectsテーブルへの登録.シラバスインターフェース;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class シラバス implements シラバスインターフェース {
     private JdbcClient jdbcClient;
 
@@ -28,5 +30,17 @@ public class シラバス implements シラバスインターフェース {
                 .list();
 
         return new 講義情報リスト(講義情報リスト);
+    }
+
+    public void 科目名表示(){
+        String subjectsNameStatement = " select name as 科目名 from subjects ";
+
+        List<科目名> 科目名リスト = jdbcClient.sql(subjectsNameStatement)
+                .query(科目名.class)
+                .list();
+
+        for(科目名 科目名 : 科目名リスト){
+            System.out.println(科目名.科目名());
+        }
     }
 }
