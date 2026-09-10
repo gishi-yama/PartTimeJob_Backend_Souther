@@ -1,10 +1,12 @@
 package com.example.Backend.domain.subjectsテーブルへの登録;
 
 import com.example.Backend.domain.subjectsテーブルへの登録.record.*;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class 教員ID割り当てフォーム {
 
     public 教員IDあり講義情報リスト 作成する(講義情報リスト 講義情報リスト, 教員証リスト 教員証リスト){

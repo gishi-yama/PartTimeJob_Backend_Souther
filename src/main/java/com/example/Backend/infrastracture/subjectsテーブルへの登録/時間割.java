@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("subject用時間割")
 public class 時間割 implements 時間割インターフェース {
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("追加業務検知用時間割")
 public class 時間割 implements 時間割インターフェース {
 
     // Spring Frameworkのデータベース接続ライブラリを利用する
