@@ -23,7 +23,7 @@ public class 時間割 implements 時間割インターフェース {
 
         try {
             // テキストファイルのパスを取得
-            Path path = Paths.get("科目情報.txt");
+            Path path = Paths.get("src/main/resources/科目情報.txt");
             //テキストファイルを全行読み取りListに格納
             List<String> lines = Files.readAllLines(path);
             //テキストファイルから取り出した情報をString[]形式でListに収納
