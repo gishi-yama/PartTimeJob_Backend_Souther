@@ -8,7 +8,7 @@ CREATE TABLE teachers (
 );
 
 CREATE TABLE subjects (
-      subject_id             INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY, -- 登録した順に連番でidが生成される
+      subject_id             INTEGER       PRIMARY KEY,
       subject_name           VARCHAR(100)  NOT NULL,
       teacher_id             INTEGER       NOT NULL,
       day_of_the_week        VARCHAR(1)    NOT NULL,
