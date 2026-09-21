@@ -32,11 +32,13 @@ public class アルバイト実施報告書 implements アルバイト実施報�
 
         String arubaitoStatement = """
                     select user_student_number as 学籍番号,
+                           name as 学生の名前,
                            ptj_date as アルバイトの日にち,
                            start_time as 開始時間,
                            finish_time as 終了時間,
                            duties as 業務内容
                     from ptj_requests
+                    inner join users on user_student_number = student_number
                     where subject_id = ?
                 """;
 
@@ -45,6 +47,7 @@ public class アルバイト実施報告書 implements アルバイト実施報�
                     .params(科目のid)
                     .query((resultSet, rowNumber) -> new 曜日なしアルバイト情報(
                         new 学籍番号(resultSet.getString("学籍番号")),
+                        new 学生の名前(resultSet.getString("学生の名前")),
                         new アルバイトの日にち(resultSet.getDate("アルバイトの日にち").toLocalDate()),
                         new 時間帯(resultSet.getTime("開始時間").toLocalTime(),
                                   resultSet.getTime("終了時間").toLocalTime()),
