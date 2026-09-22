@@ -28,7 +28,7 @@ public class 教員名簿 implements 教員名簿インターフェース {
                 """;
 
         List<教員証> 教員証リスト = jdbcClient.sql(facultyListStatement)
-                        .query((resultSet, rowNumber) -> new 教員証(new 教員ID(resultSet.getInt("教員ID")),
+                        .query((resultSet, rowNumber) -> new 教員証(new 教員ID(resultSet.getString("教員ID")),
                                                                                new 教員名(resultSet.getString("教員名"))))
                         .list();
 

@@ -18,13 +18,24 @@ public class 教員登録フォーム implements 教員登録フォームイン�
     @Override
     public void 登録する(教員アカウントリスト 教員アカウントリスト) {
         String registerStatement = """
-                    insert into teachers (teacher_name, teacher_password) values (:name, :password)
+                    insert into teachers (teacher_id, teacher_name, teacher_password, teacher_type) values (:id, :name, :password, :type)
                 """;
 
+        // ADMIN権限のユーザを登録
+        jdbcClient.sql(registerStatement)
+                .param("id", "ADMIN")
+                .param("name", "ADMIN")
+                .param("password", "ADMIN")
+                .param("type", "ADMIN")
+                .update();
+
+        // 一般教員を登録
         for (教員アカウント 教員アカウント : 教員アカウントリスト.教員アカウントリスト()) {
             jdbcClient.sql(registerStatement)
+                    .param("id", 教員アカウント.名前().名前())
                     .param("name", 教員アカウント.名前().名前())
                     .param("password", 教員アカウント.パスワード().パスワード())
+                    .param("type", "USER")
                     .update();
         }
     }

@@ -2,15 +2,16 @@ DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS teachers;
 
 CREATE TABLE teachers (
-      teacher_id        INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      teacher_id        VARCHAR(255)  PRIMARY KEY,
       teacher_name      VARCHAR(255)  NOT NULL,
-      teacher_password  VARCHAR(255)  NOT NULL
+      teacher_password  VARCHAR(255)  NOT NULL,
+      teacher_type      VARCHAR(5)    NOT NULL CONSTRAINT check_teacher_type CHECK (teacher_type IN ('USER', 'ADMIN')) -- 制約
 );
 
 CREATE TABLE subjects (
       subject_id             INTEGER       PRIMARY KEY,
       subject_name           VARCHAR(100)  NOT NULL,
-      teacher_id             INTEGER       NOT NULL,
+      teacher_id             VARCHAR(255)  NOT NULL,
       day_of_the_week        VARCHAR(1)    NOT NULL,
       scheduled_start_time   TIME          NOT NULL,
       scheduled_finish_time  TIME          NOT NULL,
