@@ -1,6 +1,7 @@
 package com.example.Backend.infrastracture.認証;
 
 import com.example.Backend.domain.認証.*;
+import com.example.Backend.domain.認証.教員ID;
 import com.example.Backend.domain.追加業務検知.record.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;

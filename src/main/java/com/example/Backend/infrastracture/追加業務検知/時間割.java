@@ -35,12 +35,6 @@ public class 時間割 implements 時間割インターフェース {
                         where subject_name = ?
                 """;
 
-
-        System.out.println("teachersテーブルの行数");
-        System.out.println(jdbcClient.sql("SELECT COUNT(*) FROM teachers;").query(Integer.class).single());
-        System.out.println("subjectsテーブルの行数");
-        System.out.println(jdbcClient.sql("SELECT COUNT(*) FROM subjects;").query(Integer.class).single());
-
         時間帯 講義時間帯 = jdbcClient.sql(timeStatement)
                 .params(選択した科目のデータ.科目名())
                 .query(時間帯.class)

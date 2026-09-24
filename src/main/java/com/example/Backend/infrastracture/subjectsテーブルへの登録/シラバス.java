@@ -38,9 +38,5 @@ public class シラバス implements シラバスインターフェース {
         List<科目名> 科目名リスト = jdbcClient.sql(subjectsNameStatement)
                 .query(科目名.class)
                 .list();
-
-        for(科目名 科目名 : 科目名リスト){
-            System.out.println(科目名.科目名());
-        }
     }
 }
