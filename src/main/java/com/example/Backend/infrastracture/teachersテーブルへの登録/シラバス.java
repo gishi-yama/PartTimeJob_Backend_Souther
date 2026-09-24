@@ -26,7 +26,10 @@ public class シラバス implements シラバスインターフェース {
 
         List<名前> nameList = jdbcClient.sql(syllabusStatement)
                                     .query(名前.class)
-                                    .list();
+                                    .list()
+                                    .stream()
+                                    .distinct()
+                                    .toList();
 
         return new 名前リスト(nameList);
     }
