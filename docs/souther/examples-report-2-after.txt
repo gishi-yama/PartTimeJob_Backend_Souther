@@ -1,0 +1,131 @@
+com.example.Backend.souther.追加業務検知                 measurement: partial
+  時間割から講義情報を取得する injected      rows 2    pending 2
+    signature   out specified 2/2  observed 0/2  verified 0/2
+    partition   not applicable (the rules of this behavior divide no position)
+    border      borders 0   obligations 0/0
+    branch      not applicable (this behavior has no body)
+    replacement not applicable (this behavior has no body)
+  アルバイト実施報告書を取得する injected      rows 0    pending 0
+    signature   not applicable (this behavior's output is not a sum)
+    partition   not applicable (the rules of this behavior divide no position)
+    border      borders 0   obligations 0/0
+    branch      not applicable (this behavior has no body)
+    replacement not applicable (this behavior has no body)
+  曜日を付ける             implemented   rows 4    pending 0
+    signature   not applicable (this behavior's output is not a sum)
+    partition   not applicable (the rules of this behavior divide no position)
+      · divided no way: 報告.日にち
+      · divided no way: 報告.業務内容
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `報告.労働時間帯.開始`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `報告.労働時間帯.終了`
+    border      borders 0   obligations 0/0   (not all of it was measured)
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 報告.労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 報告.労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+    branch      1/1
+    decision    rules 1   taken 1
+    replacement 4/4
+  労働時間帯を分割する     implemented   rows 23   pending 0
+    signature   out specified 6/6  observed 6/6  verified 6/6
+                in #3 specified 7/7
+    partition   axes 2   equivalence partitions 14/14   (not all of it was measured)
+      · 講義.講義の曜日 holds 7 classes and this behavior reads it without telling them apart
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.開始`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.終了`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.開始`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.終了`
+      · no line: comparison@246:17 — it relates the value here to another value rather than dividing the values here, about `労働の曜日`
+      · no line: comparison@246:17 — it relates the value here to another value rather than dividing the values here, about `講義.講義の曜日`
+      · not read: comparison@249:17 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.終了`
+      · not read: comparison@249:17 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.開始`
+      · not read: comparison@249:36 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.開始`
+      · not read: comparison@249:36 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.終了`
+      · not read: comparison@252:14 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.開始`
+      · not read: comparison@252:14 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.開始`
+      · not read: comparison@253:18 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.終了`
+      · not read: comparison@253:18 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.終了`
+      · not read: comparison@267:18 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `労働時間帯.終了`
+      · not read: comparison@267:18 — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.終了`
+      · not accounted for: comparison@249:17 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:17 — what this rule states about 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:36 — what this rule states about 労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:36 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@252:14 — what this rule states about 労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@252:14 — what this rule states about 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@253:18 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@253:18 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@267:18 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@267:18 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+    border      borders 6   obligations 25/25   (not all of it was measured)
+      · not accounted for: comparison@249:17 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:17 — what this rule states about 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:36 — what this rule states about 労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@249:36 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@252:14 — what this rule states about 労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@252:14 — what this rule states about 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@253:18 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@253:18 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@267:18 — what this rule states about 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: comparison@267:18 — what this rule states about 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · no IN point exists at 労働の曜日 = 講義.講義の曜日 (comparison@246:17): the class at the line holds the value the rule names and nothing else, so there is no row in it away from the line
+    branch      10/10
+    decision    rules 6   taken 6
+    replacement 10/10
+  一件を検知する           implemented   rows 7    pending 0
+    signature   not applicable (this behavior's output is not a sum)
+    partition   axes 1   equivalence partitions 7/7
+      · divided no way: 報告.日にち
+      · divided no way: 報告.業務内容
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.開始`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `講義.講義時間帯.終了`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `報告.労働時間帯.開始`
+      · not read: invariant 時間帯 (開始は終了より前) — what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out, about `報告.労働時間帯.終了`
+    border      borders 0   obligations 0/0   (not all of it was measured)
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 講義.講義時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 講義.講義時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 報告.労働時間帯.開始: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+      · not accounted for: invariant 時間帯 (開始は終了より前) — whether the values stop on 報告.労働時間帯.終了: what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out
+    branch      not applicable (this body owes no arm)
+    decision    rules 1   taken 1
+    replacement 2/2
+  追加業務を検知する       implemented   rows 3    pending 0
+    signature   out specified 2/2  observed 2/2  verified 2/2
+    partition   not applicable (the rules of this behavior divide no position)
+    border      borders 0   obligations 0/0
+    branch      2/2
+    decision    rules 2   taken 2
+    replacement 3/3
+  declarations   borders 4   obligations 8/8
+      · no OFF point is owed at String.length(value) = 1 (invariant 科目名 (空でない)): excluded — no value can stand there
+      · no OUT point is owed at String.length(value) = 1 (invariant 科目名 (空でない)): excluded — no value can stand there
+      · no OFF point is owed at String.length(value) = 1 (invariant 学籍番号 (空でない)): excluded — no value can stand there
+      · no OUT point is owed at String.length(value) = 1 (invariant 学籍番号 (空でない)): excluded — no value can stand there
+      · no OFF point is owed at String.length(value) = 1 (invariant 学生の名前 (空でない)): excluded — no value can stand there
+      · no OUT point is owed at String.length(value) = 1 (invariant 学生の名前 (空でない)): excluded — no value can stand there
+      · no OFF point of invariant 時間帯 (開始は終了より前) is owed: excluded — no value can stand there
+      · no OUT point of invariant 時間帯 (開始は終了より前) is owed: excluded — no value can stand there
+
+6 behaviors: 4 implemented, 0 unimplemented, 2 injected; 2 rows waiting for a `let`.
+adequacy: undetermined
+  what keeps it open
+    stopped at a figure of this compiler     0
+    stopped at no figure                    16
+      comparison@追加業務検知.sou:253:18 at 労働時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:267:18 at 労働時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:249:17 at 労働時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 労働時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:252:14 at 労働時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:249:36 at 労働時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 労働時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 報告.労働時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 報告.労働時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:253:18 at 講義.講義時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:267:18 at 講義.講義時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:249:36 at 講義.講義時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 講義.講義時間帯.終了 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:252:14 at 講義.講義時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      comparison@追加業務検知.sou:249:17 at 講義.講義時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
+      invariant 時間帯 (開始は終了より前) at 講義.講義時間帯.開始 (what it states was read, and it relates the value here to another value not shown to reach every value here, so which values here settle it on their own is not worked out) — read the rule and what stopped it
