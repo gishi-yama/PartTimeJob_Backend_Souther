@@ -27,7 +27,8 @@
         <url/>
     </scm>
     <properties>
-        <java.version>21</java.version>
+        <!-- Souther が生成するクラスと souther-runtime は Java 25 のクラスファイル -->
+        <java.version>25</java.version>
         <vaadin.version>24.4.6</vaadin.version>
     </properties>
     <dependencies>
@@ -65,6 +66,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency-->
+        <!-- Souther: 生成されたクラスが実行時に使うライブラリ -->
+        <dependency>
+            <groupId>org.souther-lang</groupId>
+            <artifactId>souther-runtime</artifactId>
+            <version>0.4.1</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -83,6 +90,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Souther: src/main/souther/*.sou をコンパイルし、example を評価する -->
+            <plugin>
+                <groupId>org.souther-lang</groupId>
+                <artifactId>souther-maven-plugin</artifactId>
+                <version>0.2.0</version>
+                <executions>
+                    <execution>
+                        <goals><goal>compile</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
