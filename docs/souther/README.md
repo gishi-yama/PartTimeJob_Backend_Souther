@@ -2,7 +2,7 @@
 
 学生アシスタント（アルバイト）が働いた時間帯を、担当科目の講義時間帯と突き合わせます。そのうえで「講義時間内の通常労働」と「講義時間外の追加労働」に分割します。この処理（`domain/追加業務検知`）を [Souther](https://github.com/souther-lang/souther) 0.4.1 で書き直し、その後 0.5.0 に上げました（[8 章](#8-souther-050-に上げたときの変化)）。
 
-- ブランチ: `souther`（`main` は書き直し前のまま）
+- ブランチ: `souther`（`main` は書き直し前の Java 版。どちらも H2 で起動できる）
 - 既存の Java 版（`/結果表示` とそのクラス群）は**変更していません**。Souther 版は `/結果表示/souther` として並べて置き、比較できるようにしています。
 
 | 何を見るか | ファイル |
@@ -203,6 +203,43 @@ HTTP ──▶ 追加業務検知SoutherAPI ──▶ 追加業務を検知す�
 
 ## 6. 再現手順
 
+### アプリを H2 で動かす（PostgreSQL 不要）
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 25)
+./mvnw -DskipTests package
+java -jar target/vsbp-0.0.1-SNAPSHOT.jar --spring.profiles.active=h2
+```
+
+- 起動は約 3 秒で終わります。
+- `./mvnw spring-boot:run` でも動きますが、Vaadin が開発モードになり、`src/main/frontend/` の生成と npm の処理で時間がかかります。そのため、jar を作ってから起動する手順にしています。
+
+- プロファイル `h2` は `main`（元の Java 版）にも入っています。`h2`（[`application-h2.properties`](../../src/main/resources/application-h2.properties)）では、学生 DB・教員 DB の両方を H2 のインメモリ DB（PostgreSQL 互換モード）にします。
+- テーブルと初期データは、既存の `DataBase/*.sql` を起動時に流し込みます。そのため、`gakusei.sql` の日付表記を `'2026/7/7'` から ISO 形式の `'2026-07-07'` に揃えました。PostgreSQL でも意味は同じです。
+- 起動すると、ポート 8082 で次のように元の API と Souther 版を並べて叩けます。
+
+```bash
+# 元の Java 版
+curl -X POST 'http://localhost:8082/結果表示'         --data-urlencode '科目名=Javaプログラミング'
+# Souther 版（正常 200 / 時間割に無い科目 404 / 空 400）
+curl -X POST 'http://localhost:8082/結果表示/souther' --data-urlencode '科目名=Javaプログラミング'
+curl -X POST 'http://localhost:8082/結果表示/souther' --data-urlencode '科目名=存在しない'
+curl -X POST 'http://localhost:8082/結果表示/souther' --data-urlencode '科目名='
+```
+
+実測では、`Javaプログラミング` の 4 件はすべて元の API と同じ分割になりました。区分の内訳は次のとおりです。
+
+| 区分 | 件数 |
+|---|---|
+| 講義時間内 | 1 |
+| 講義の前後にはみ出し | 1 |
+| 講義後にはみ出し | 1 |
+| 講義のない曜日 | 1 |
+
+時間割にない科目を渡したときは、元の API が 500 を返すのに対し、Souther 版は 404 を返します。
+
+### CLI とテスト
+
 ```bash
 # Souther CLI（Homebrew）
 brew install souther-lang/souther/souther
@@ -233,8 +270,8 @@ JAVA_HOME=$(/usr/libexec/java_home -v 25) ./mvnw test -Dtest='労働時間帯分
 
 - **JDK 25 が必要**: Souther の生成クラスと souther-runtime は Java 25 のクラスファイルです。そのため `java.version` を 21 → 25 に上げました。
   - `mvn compile` と上記テストは JDK 25 で通っています。
-  - アプリ全体の起動（Vaadin 24.4 / PostgreSQL 込み）は、DB を用意していないため未確認です。
-  - `BackendApplicationTests`（`contextLoads`）も DB が必要なので実行していません。
+  - アプリ全体の起動は、H2 プロファイルで確認しました（上記）。PostgreSQL での起動は未確認です。
+  - `BackendApplicationTests`（`contextLoads`）は PostgreSQL を前提にしているので実行していません。
 - **example が 1 行も無い状態の `souther examples` で内部エラー**: `FixtureException: 講義時間帯: invariant violated ...` が出ます（0.4.1、0.5.0 とも）。網羅の探索が invariant を満たさない候補値を作ってしまうようです。example を書けば出ません。
 - **`--lang ja`**: 0.4.1 では効かず英語のままでしたが、0.5.0 ではレポートもコンパイルエラーも日本語になります。
 - **曜日の表記**: `曜日` の Decoder は case 名（`"月"`〜`"日"`）を受け付けます。DB の `day_of_the_week` がこの表記で入っている前提です。`"月曜"` などの別表記なら変換が要ります。
