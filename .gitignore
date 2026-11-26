@@ -1,4 +1,6 @@
 node_modules
+# Vaadin が開発モードで生成する
+src/main/frontend/
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
