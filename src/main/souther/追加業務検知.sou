@@ -38,6 +38,7 @@ module com.example.Backend.souther.追加業務検知 exposing (
     アルバイト実施報告書を取得する,
     曜日を付ける,
     労働時間帯を分割する,
+    一件を検知する,
     追加業務を検知する
 )
 

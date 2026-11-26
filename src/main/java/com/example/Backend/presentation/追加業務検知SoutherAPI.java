@@ -7,6 +7,9 @@ import com.example.Backend.souther.追加業務検知.科目名;
 import com.example.Backend.souther.追加業務検知.追加業務を検知する;
 import com.example.Backend.souther.追加業務検知.追加業務を検知するResult;
 import com.example.Backend.souther.追加業務検知.追加業務検知の結果一覧;
+import net.unit8.raoh.Err;
+import net.unit8.raoh.Ok;
+import net.unit8.raoh.Path;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +21,7 @@ import java.util.Map;
  * Souther 版の追加業務検知 API。既存の {@code /結果表示}（Java 版）と並べて置き、結果を比較できるようにしている。
  *
  * <ul>
- *   <li>入力: 科目名は Souther の Decoder を通す（空文字は invariant 違反として 400）。</li>
+ *   <li>入力: 科目名は Souther の Decoder（＝ Raoh の Decoder）を通す。空文字は invariant 違反として、Raoh の Issues 形式（path / code / message）で 400。</li>
  *   <li>処理: {@code 追加業務を検知する.bind(...)} で DB 実装を注入した behavior を呼ぶだけ。分割ロジックは全て .sou 側。</li>
  *   <li>出力: Souther の Encoder が JSON にそのまま出せる形（Map / List）に変換する。
  *       各結果は {@code "区分": {"type": "講義前にはみ出した労働", ...}} のように case 名を判別子として持つ。</li>
@@ -36,11 +39,16 @@ public class 追加業務検知SoutherAPI {
 
     @PostMapping("/結果表示/souther")
     public ResponseEntity<Object> post(@RequestParam(name = "科目名", required = false) String 科目) {
-        var 復号 = 科目名.decoder().decode(科目);
-        if (復号.isErr()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "科目名が不正です", "detail", String.valueOf(復号)));
-        }
-        追加業務を検知するResult 結果 = 検知.apply(復号.getOrThrow());
+        // 【Raoh】Souther の Decoder は Raoh の Decoder。失敗は例外ではなく Err（Issues）として返る
+        return switch (科目名.decoder().decode(科目)) {
+            case Err<科目名>(var 問題) ->
+                    ResponseEntity.badRequest().body(Map.of("問題", 問題.rebase(Path.of("科目名")).toJsonList()));
+            case Ok<科目名>(var 読めた科目) -> 検知する(読めた科目);
+        };
+    }
+
+    private ResponseEntity<Object> 検知する(科目名 科目) {
+        追加業務を検知するResult 結果 = 検知.apply(科目);
         // 【Souther: 出力は bare sum】Java では sealed interface になるので switch で網羅できる
         return switch (結果) {
             case 追加業務検知の結果一覧 一覧 -> ResponseEntity.ok(追加業務検知の結果一覧.encoder().encode(一覧));

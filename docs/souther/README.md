@@ -3,6 +3,7 @@
 学生アシスタント（アルバイト）が働いた時間帯を、担当科目の講義時間帯と突き合わせます。そのうえで「講義時間内の通常労働」と「講義時間外の追加労働」に分割します。この処理（`domain/追加業務検知`）を [Souther](https://github.com/souther-lang/souther) 0.4.1 で書き直し、その後 0.5.0 に上げました（[8 章](#8-souther-050-に上げたときの変化)）。
 
 - ブランチ: `souther`（`main` は書き直し前の Java 版。どちらも H2 で起動できる）
+- 関連ブランチ: `souther-raoh`（境界の読み込みを [Raoh](https://github.com/raoh-project/raoh-java) で書いた版。[RAOH.md](RAOH.md)）、`souther-live`（ライブコーディング台本）
 - 既存の Java 版（`/結果表示` とそのクラス群）は**変更していません**。Souther 版は `/結果表示/souther` として並べて置き、比較できるようにしています。
 
 | 何を見るか | ファイル |

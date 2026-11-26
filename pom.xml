@@ -72,6 +72,13 @@
             <artifactId>souther-runtime</artifactId>
             <version>0.5.0</version>
         </dependency>
+        <!-- Raoh: 境界（DB の行・HTTP の入力）を型付きの値に読み込むデコーダ。
+             Souther が生成する Decoder も Raoh の Decoder なので、版は souther-runtime 0.5.0 が使うものに合わせる -->
+        <dependency>
+            <groupId>net.unit8.raoh</groupId>
+            <artifactId>raoh</artifactId>
+            <version>0.9.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
