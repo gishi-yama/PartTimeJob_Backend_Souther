@@ -1,6 +1,6 @@
 # 追加業務検知を Souther で書き直す — 事例メモ
 
-学生アシスタント（アルバイト）が働いた時間帯を、担当科目の講義時間帯と突き合わせます。そのうえで「講義時間内の通常労働」と「講義時間外の追加労働」に分割します。この処理（`domain/追加業務検知`）を [Souther](https://github.com/souther-lang/souther) 0.4.1 で書き直しました。
+学生アシスタント（アルバイト）が働いた時間帯を、担当科目の講義時間帯と突き合わせます。そのうえで「講義時間内の通常労働」と「講義時間外の追加労働」に分割します。この処理（`domain/追加業務検知`）を [Souther](https://github.com/souther-lang/souther) 0.4.1 で書き直し、その後 0.5.0 に上げました（[8 章](#8-souther-050-に上げたときの変化)）。
 
 - ブランチ: `souther`（`main` は書き直し前のまま）
 - 既存の Java 版（`/結果表示` とそのクラス群）は**変更していません**。Souther 版は `/結果表示/souther` として並べて置き、比較できるようにしています。
@@ -9,7 +9,7 @@
 |---|---|
 | Souther のモデル本体 | [`src/main/souther/追加業務検知.sou`](../../src/main/souther/追加業務検知.sou) |
 | example（コンパイル時に評価される具体例） | [`src/main/souther/追加業務検知.examples.sou`](../../src/main/souther/追加業務検知.examples.sou) |
-| `souther examples` の報告（追加前 / 追加後） | [`examples-report-1-before.txt`](examples-report-1-before.txt) / [`examples-report-2-after.txt`](examples-report-2-after.txt) |
+| `souther examples` の報告（追加前 / 追加後、0.5.0 で取得） | [`examples-report-1-before.txt`](examples-report-1-before.txt) / [`examples-report-2-after.txt`](examples-report-2-after.txt)（日本語版: [`before.ja`](examples-report-1-before.ja.txt) / [`after.ja`](examples-report-2-after.ja.txt)） |
 | Java から使う側（DB 実装・API） | `infrastracture/追加業務検知souther/*`, `presentation/追加業務検知SoutherAPI.java` |
 | 既存 Java 版との照合テスト | `src/test/java/.../domain/追加業務検知/労働時間帯分割の特性Test.java` |
 
@@ -210,6 +210,9 @@ brew install souther-lang/souther/souther
 # example の評価と網羅レポート（--strict で不足があれば終了コード非 0）
 souther examples src/main/souther/追加業務検知.sou src/main/souther/追加業務検知.examples.sou --strict
 
+# レポートやエラーを日本語で（0.5.0 から）
+souther examples --lang ja src/main/souther/追加業務検知.sou src/main/souther/追加業務検知.examples.sou
+
 # 足りない行を <?> 付きで書き出す
 souther examples src/main/souther/追加業務検知.sou src/main/souther/追加業務検知.examples.sou --generate
 
@@ -232,7 +235,31 @@ JAVA_HOME=$(/usr/libexec/java_home -v 25) ./mvnw test -Dtest='労働時間帯分
   - `mvn compile` と上記テストは JDK 25 で通っています。
   - アプリ全体の起動（Vaadin 24.4 / PostgreSQL 込み）は、DB を用意していないため未確認です。
   - `BackendApplicationTests`（`contextLoads`）も DB が必要なので実行していません。
-- **example が 1 行も無い状態の `souther examples` で内部エラー**: souther 0.4.1 で、`FixtureException: 講義時間帯: invariant violated ...` が出ました。網羅の探索が invariant を満たさない候補値を作ってしまうようです。example を書けば出ません。
-- **`--lang ja` を付けてもレポートは英語**: 0.4.1 では、コンパイルエラー・レポートとも英語でした。
+- **example が 1 行も無い状態の `souther examples` で内部エラー**: `FixtureException: 講義時間帯: invariant violated ...` が出ます（0.4.1、0.5.0 とも）。網羅の探索が invariant を満たさない候補値を作ってしまうようです。example を書けば出ません。
+- **`--lang ja`**: 0.4.1 では効かず英語のままでしたが、0.5.0 ではレポートもコンパイルエラーも日本語になります。
 - **曜日の表記**: `曜日` の Decoder は case 名（`"月"`〜`"日"`）を受け付けます。DB の `day_of_the_week` がこの表記で入っている前提です。`"月曜"` などの別表記なら変換が要ります。
 - **元の SQL について（未修正）**: 既存実装では、`subjects` の科目名の列を `name`（アルバイト実施報告書）と `subject_name`（時間割）で別々に参照しています。Souther 版の DB 実装も元の SQL をそのまま使っています。
+
+---
+
+## 8. souther 0.5.0 に上げたときの変化
+
+**`.sou` も Java も 1 行も変えずに上がりました。** 変えたのは `pom.xml` の `souther-runtime` を 0.4.1 → 0.5.0 にしたことだけです（`souther-maven-plugin` は 0.2.0 のまま。プラグインは runtime と同じバージョンのコンパイラを取ってきます）。
+
+| 確認したこと | 結果 |
+|---|---|
+| `souther examples --strict`（39 行） | 不足 `!` 0 件、終了コード 0。0.4.1 と同じ |
+| 最初の 17 行版（commit d61b30c）での報告 | 不足 `!` 36 件。0.4.1 と同じ数・同じ指摘 |
+| 4 章のデモ（E2010 ×2、E1905、E1201、E1903） | すべて同じ行・同じエラーコードで止まる |
+| `mvn test` | 31 件成功（DB が要る `BackendApplicationTests` だけ接続エラー） |
+| `souther run` | 同じ JSON を返す |
+
+報告の内容で増えたもの:
+
+- **`stops`（実行が途中で止まりうる箇所）** が新しい測定項目として加わりました。
+  - `労働時間帯を分割する` では、`時間帯` などを組み立てる 9 か所が `not resolved`（invariant 違反で止まらないことを、この測定では示しきれていない）と並びます。不足 `!` ではなく、「測れていない」ことの明示です。
+  - `追加業務を検知する` では、注入される 2 つの behavior の呼び出しが「本体がモデルに無いので読めない」と記されます。DB 実装の側は Souther から見えない、という境界がそのまま報告に出ています。
+- `追加業務を検知する` の差し替え検査（replacement）が 3/3 → 5/5 になりました（数える書き換えが増え、すべて example で見分けられています）。
+- 測定の一部を読み飛ばした箇所に `? partial: a rule of the model was set aside by a reader` が付くようになりました。
+- `--lang ja` が効くようになりました（例: `十分性: 未充足` / `` `!` を付けた不足が 36 件ある。strict ビルドはこれらを理由に拒否する。``）。発表資料にはこちらが使えます。
+

@@ -24,6 +24,7 @@ com.example.Backend.souther.追加業務検知                 measurement: part
     branch      1/1
     decision    rules 1   taken 1
     replacement 3/3
+    ? partial: a rule of the model was set aside by a reader
   労働時間帯を分割する     implemented   rows 11   pending 0
     signature   out specified 6/6  observed 6/6  verified 6/6
                 in #3 specified 2/7
@@ -105,9 +106,20 @@ com.example.Backend.souther.追加業務検知                 measurement: part
       ! no row is at an OUT point (comparison@249:36)
           · read as 労働時間帯を分割する/労働時間帯.開始: in 講義.講義時間帯.終了 < 労働時間帯.開始
       · no IN point exists at 労働の曜日 = 講義.講義の曜日 (comparison@246:17): the class at the line holds the value the rule names and nothing else, so there is no row in it away from the line
+    stops       may stop 0   not resolved 9
+      · stop not resolved: 255:13; whether a run stops at 講義の前後にはみ出した労働 at 255:13 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 256:29; whether a run stops at 時間帯 at 256:29 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 258:29; whether a run stops at 時間帯 at 258:29 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 262:13; whether a run stops at 講義前にはみ出した労働 at 262:13 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 263:29; whether a run stops at 時間帯 at 263:29 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 264:27; whether a run stops at 時間帯 at 264:27 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 269:13; whether a run stops at 講義後にはみ出した労働 at 269:13 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 270:27; whether a run stops at 時間帯 at 270:27 is not determined: what its type requires of the values it is made of is not read
+      · stop not resolved: 271:29; whether a run stops at 時間帯 at 271:29 is not determined: what its type requires of the values it is made of is not read
     branch      10/10
     decision    rules 6   taken 6
     replacement 10/10
+    ? partial: a rule of the model was set aside by a reader
   一件を検知する           implemented   rows 1    pending 0
     signature   not applicable (this behavior's output is not a sum)
     partition   axes 1   equivalence partitions 1/7
@@ -132,14 +144,19 @@ com.example.Backend.souther.追加業務検知                 measurement: part
     decision    rules 1   taken 1
     replacement 0/1
       ! no row would come out differently if the body always answered what `一件を検知する 水曜の講義時間ぴったりの報告` answers
+    ? partial: a rule of the model was set aside by a reader
   追加業務を検知する       implemented   rows 2    pending 0
     signature   out specified 2/2  observed 2/2  verified 2/2
     partition   not applicable (the rules of this behavior divide no position)
     border      borders 0   obligations 0/0
+    stops       may stop 0   not resolved 2
+      · stop not resolved: 297:11; whether a run stops in something it works out is not determined: it is none of the operations this compiler tells apart; a run may stop at the call of 時間割から講義情報を取得する at 297:11; 時間割から講義情報を取得する has no body in the model to read
+      · stop not resolved: 301:49; whether a run stops in something it works out is not determined: it is none of the operations this compiler tells apart; a run may stop at the call of アルバイト実施報告書を取得する at 301:49; アルバイト実施報告書を取得する has no body in the model to read
     branch      2/2
     decision    rules 2   taken 2
-    replacement 2/2
+    replacement 4/4
   declarations   borders 4   obligations 4/8
+      ? partial: a rule of the model was set aside by a reader
       · no OFF point is owed at String.length(value) = 1 (invariant 科目名 (空でない)): excluded — no value can stand there
       · no OUT point is owed at String.length(value) = 1 (invariant 科目名 (空でない)): excluded — no value can stand there
       · no OFF point is owed at String.length(value) = 1 (invariant 学籍番号 (空でない)): excluded — no value can stand there
