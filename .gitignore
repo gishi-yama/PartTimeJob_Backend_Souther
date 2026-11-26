@@ -34,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# ライブ用の窓の設定は共有する
+!live/.vscode/

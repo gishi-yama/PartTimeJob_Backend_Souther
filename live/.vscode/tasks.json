@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "sc: コンパイル",
+            "type": "shell",
+            "command": "souther compile --lang ja -d out 労働時間帯分割.sou 労働時間帯分割.examples.sou",
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "clear": true, "reveal": "always" },
+            "problemMatcher": []
+        },
+        {
+            "label": "se: examples レポート",
+            "type": "shell",
+            "command": "souther examples --lang ja 労働時間帯分割.sou 労働時間帯分割.examples.sou",
+            "group": "test",
+            "presentation": { "clear": true, "reveal": "always" },
+            "problemMatcher": []
+        },
+        {
+            "label": "se --generate: 足りない行を出す",
+            "type": "shell",
+            "command": "souther examples --generate --lang ja 労働時間帯分割.sou 労働時間帯分割.examples.sou",
+            "presentation": { "clear": true, "reveal": "always" },
+            "problemMatcher": []
+        },
+        {
+            "label": "ステップの状態を読み込む",
+            "type": "shell",
+            "command": "./step.sh ${input:step}",
+            "presentation": { "clear": true, "reveal": "always" },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "step",
+            "type": "pickString",
+            "description": "どの状態から始めるか（0 = 空）",
+            "options": ["0", "1", "2", "3", "4", "5", "6"],
+            "default": "0"
+        }
+    ]
+}

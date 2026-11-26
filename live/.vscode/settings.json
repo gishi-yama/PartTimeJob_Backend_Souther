@@ -1,0 +1,9 @@
+{
+    // この窓は .sou だけを扱う。Java 拡張を起こさないので赤くならない
+    "java.enabled": false,
+    "files.exclude": { "out": true },
+    // 行が何を覆っているかを behavior の上に出す（コンパイル済みの結果を読むだけ）
+    "souther.adequacy": "witness",
+    "editor.fontSize": 18,
+    "terminal.integrated.fontSize": 16
+}

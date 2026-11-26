@@ -41,17 +41,31 @@
 
 ## 1. 準備
 
+ライブは、リポジトリ直下の [`live/`](../../../live/) だけを VS Code の別の窓で開いて行います。
+
 ```bash
-mkdir live && cd live
-touch 労働時間帯分割.sou 労働時間帯分割.examples.sou
-alias sc='souther compile --lang ja -d /tmp/out 労働時間帯分割.sou 労働時間帯分割.examples.sou'
+code live
+```
+
+- **プロジェクト全体の窓で書かない理由:** Souther は `.java` を生成せず、`.class` を `target/classes` に直接書きます。VS Code の Java 拡張は自分でビルドするときに `target/classes` を作り直すので、Souther のクラスが消えます。その結果、Souther の型を使っている既存の Java が全部赤くなります。`live/` の窓では `java.enabled: false` にしてあるので、この問題は起きません。
+- `live/` に入っているもの:
+  - `step.sh`: 作業ファイルを指定したステップの状態にします。`./step.sh 0` で空に戻し、`./step.sh 4` で step4 の「緑」の状態にします。タスク「ステップの状態を読み込む」からも選べます。
+  - `.vscode/tasks.json`: 次のタスクを登録しています。`sc`（コンパイル、⇧⌘B）、`se`（examples レポート）、`se --generate`。
+  - `.vscode/settings.json`: Java を無効にする設定、文字の拡大、`souther.adequacy: witness`（behavior の上にカバレッジを表示する）。
+- 作業ファイル（`労働時間帯分割.sou` と `.examples.sou`）とコンパイル結果の `out/` は、git の対象外です。
+- ターミナルで打つ場合は、次の alias を使います。
+
+```bash
+cd live && ./step.sh 0
+alias sc='souther compile --lang ja -d out 労働時間帯分割.sou 労働時間帯分割.examples.sou'
 alias se='souther examples --lang ja 労働時間帯分割.sou 労働時間帯分割.examples.sou'
 ```
 
+- 空のファイルで `sc` を実行すると、E2301（構文エラー）になります。最初の `module` 行を書いてから実行します。
 - 画面は左にエディタ、右にターミナルを置きます。
 - `--lang ja` を付けると、エラーとレポートが日本語になります（0.5.0 から）。
 - **注意: example が 1 行もない状態で `se` を実行すると、souther 0.5.0 は内部エラーになります。** step2 より前は `sc` だけを使います。
-- 比較用に、Java の `労働時間帯分割.java` を別のタブで開いておきます。
+- 比較用の Java（`労働時間帯分割.java`）は、`live/` の窓では開きません（Java を無効にしているため）。プロジェクト全体の窓か GitHub で開いておきます。赤い表示が気になる場合は、GitHub の main ブランチで見せます。
 
 ---
 
