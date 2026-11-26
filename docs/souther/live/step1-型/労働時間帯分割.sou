@@ -1,0 +1,10 @@
+module ライブ.労働時間帯分割 exposing (曜日, 月, 火, 水, 木, 金, 土, 日, 時間帯, 講義情報)
+
+// Java: record 講義の曜日(String) / アルバイトの曜日(String)
+data 曜日 = 月 | 火 | 水 | 木 | 金 | 土 | 日
+
+// Java: record 時間帯(LocalTime 開始時間, LocalTime 終了時間)
+data 時間帯 = { 開始: Time, 終了: Time }
+    invariant 開始は終了より前 = 開始 < 終了
+
+data 講義情報 = { 講義の曜日: 曜日, 講義時間帯: 時間帯 }
